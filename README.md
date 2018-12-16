@@ -7,3 +7,4 @@ Simple script to download server files directly from Steam and run it.
 - Conan Exiles
 - Counter-Strike: Global Offensive
 - Don't Starve Together
+- Rust

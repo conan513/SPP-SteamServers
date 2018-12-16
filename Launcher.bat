@@ -1,7 +1,42 @@
 @echo off
 set mainfolder=%CD%
 
-REM -------- CHANGE SETTINGS HERE -------- 
+:menu
+echo #######################################################
+echo # Single Player Project - Steam Servers               #
+echo # https://www.patreon.com/conan513                    #
+echo #######################################################
+echo.
+echo 1 - Conan Exiles
+echo 2 - Don't Starve Together
+echo 3 - 7 Days To Die
+echo 4 - Counter-Strike Global Offensive
+echo 5 - Rust
+echo.
+set /P gameselect=Enter a number: 
+if "%gameselect%"=="1" (goto menu_conanexiles)
+if "%gameselect%"=="2" (goto menu_dontstarve)
+if "%gameselect%"=="3" (goto menu_7daystodie)
+if "%gameselect%"=="4" (goto menu_csgo)
+if "%gameselect%"=="5" (goto menu_rust)
+if "%gameselect%"=="" (goto menu)
+
+
+REM ------------------------------------------------------------------------------------------------------------------------------
+
+:menu_conanexiles
+set appid=443030
+set gamename=Conan Exiles
+set gamefolder=Conan Exiles Dedicated Server
+
+cls
+echo.
+echo Checking %gamename% server updates...
+echo.
+steamcmd.exe +login anonymous +app_update %appid% +quit
+cls
+
+REM -------- CONAN EXILES SETTINGS HERE -------- 
 
 set servername=Single Player Project
 set password=
@@ -14,47 +49,7 @@ set blitzmode=False
 set pvp=True
 set battleye=True
 
-REM -------- CHANGE SETTINGS HERE -------- 
-
-:menu
-echo #######################################################
-echo # Single Player Project - Steam Servers               #
-echo # https://www.patreon.com/conan513                    #
-echo #######################################################
-echo.
-echo 1 - Age of Conan
-echo 2 - Don't Starve Together
-echo 3 - 7 Days To Die
-echo 4 - Counter-Strike Global Offensive
-echo.
-echo 0 - Edit server settings
-echo.
-set /P gameselect=Enter a number: 
-if "%gameselect%"=="1" (goto menu_ageofconan)
-if "%gameselect%"=="2" (goto menu_dontstarve)
-if "%gameselect%"=="3" (goto menu_7daystodie)
-if "%gameselect%"=="4" (goto menu_csgo)
-
-if "%gameselect%"=="0" (goto edit_settings)
-if "%gameselect%"=="" (goto menu)
-
-:edit_settings
-start notepad.exe "%mainfolder%\Launcher.bat"
-exit
-
-REM ------------------------------------------------------------------------------------------------------------------------------
-
-:menu_ageofconan
-set appid=443030
-set gamename=Age of Conan
-set gamefolder=Conan Exiles Dedicated Server
-
-cls
-echo.
-echo Checking %gamename% server updates...
-echo.
-steamcmd.exe +login anonymous +app_update %appid% +quit
-cls
+REM -------- CONAN EXILES SETTINGS HERE -------- 
 
 echo #######################################################
 echo # Single Player Project - %gamename%                #
@@ -83,11 +78,11 @@ echo 1 - Start the server
 echo 2 - Edit server settings
 echo.
 set /P menu=Enter a number: 
-if "%menu%"=="1" (goto start_ageofconan)
-if "%menu%"=="2" (goto edit_settings)
+if "%menu%"=="1" (goto start_conanexiles)
+if "%menu%"=="2" (goto edit_conanexiles)
 if "%menu%"=="" (goto menu)
 
-:start_ageofconan 
+:start_conanexiles
 cls
 echo.
 echo Starting the %gamename% server...
@@ -95,6 +90,10 @@ echo Please wait...
 echo.
 cd "%mainfolder%\steamapps\common\%gamefolder%"
 ConanSandboxServer.exe -log -nosteam -ServerName=%servername% -ServerPassword=%password% -NetServerMaxTickRate=%tickrate% -MaxPlayers=%maxplayers% -AdminPassword=%adminpassword% -MaxNudity=%nudity% -PVPBlitzServer=%blitzmode% -PVPEnabled=%pvp% -IsBattlEyeEnabled=%battleye%
+exit
+
+:edit_conanexiles
+start notepad.exe "%mainfolder%\Launcher.bat"
 exit
 
 REM ------------------------------------------------------------------------------------------------------------------------------
@@ -258,3 +257,80 @@ if "%menu%"=="5" (start srcds -game csgo -console -usercon +game_type 1 +game_mo
 if "%menu%"=="0" (start https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Dedicated_Servers)
 if "%menu%"=="" (goto menu)
 exit
+
+REM ------------------------------------------------------------------------------------------------------------------------------
+
+:menu_rust
+set appid=258550
+set gamename=Rust
+set gamefolder=rust_dedicated
+
+cls
+echo.
+echo Checking %gamename% server updates...
+echo.
+steamcmd.exe +login anonymous +app_update %appid% +quit
+cls
+cd "%mainfolder%\steamapps\common\%gamefolder%"
+
+
+REM -------- RUST SETTINGS HERE -------- 
+
+set servername=Single Player Project
+set description=Description shown on server connection window.
+set port=28015
+set level=Procedural Map
+set seed=1234
+set worldsize=4000
+set maxplayers=10
+set serverurl=https://www.patreon.com/conan513
+set server_identity=server1
+set rcon_password=letmein
+
+REM -------- RUST SETTINGS HERE -------- 
+
+
+echo #######################################################
+echo # Single Player Project - %gamename%                        #
+echo # https://www.patreon.com/conan513                    #
+echo #######################################################
+echo.
+echo ----------- SERVER SETTINGS -----------
+echo.
+echo Name        = %servername%
+echo Description = %description%
+echo Port        = %port%
+echo Level       = %level%
+echo Seed        = %seed%
+echo Worldsize   = %worldsize%
+echo Max players = %maxplayers%
+echo Server URL  = %serverurl%
+echo Identity    = %server_identity%
+echo Rcon Pass   = %rcon_password%
+echo.
+echo ----------- SERVER SETTINGS -----------
+echo.
+echo Press F1 in the game main menu.
+echo Enter this to connect to the local server:
+echo client.connect 127.0.0.1:28015
+echo.
+echo 1 - Start the server
+echo 2 - Edit server settings
+echo.
+set /P menu=Enter a number: 
+if "%menu%"=="1" (goto start)
+if "%menu%"=="2" (goto edit_settings)
+if "%menu%"=="" (goto menu)
+
+:edit_settings
+start notepad.exe %mainfolder%\RustServer.bat
+exit
+
+:start 
+cls
+echo Starting the Rust server...
+echo Please wait...
+echo.
+cd "%mainfolder%\steamapps\common\%gamefolder%"
+RustDedicated.exe -batchmode +server.port %port% +server.level "%level%" +server.seed %seed% +server.worldsize %worldsize% +server.maxplayers %maxplayers% +server.hostname "%servername%" +server.description "%description%" +server.url "%serverurl%" +server.headerimage "http://yourwebsite.com/serverimage.jpg" +server.identity "%server_identity%" +rcon.port 28016 +rcon.password "%rcon_password%" +rcon.web 1
+goto start
