@@ -3,8 +3,8 @@ set mainfolder=%CD%
 
 :menu
 echo #######################################################
-echo # Single Player Project - Steam Servers               #
-echo # https://www.patreon.com/conan513                    #
+echo # Single Player Project - Steam Servers
+echo # https://www.patreon.com/conan513
 echo #######################################################
 echo.
 echo 1 - Conan Exiles
@@ -12,6 +12,7 @@ echo 2 - Don't Starve Together
 echo 3 - 7 Days To Die
 echo 4 - Counter-Strike Global Offensive
 echo 5 - Rust
+echo 6 - Team Fortress 2
 echo.
 set /P gameselect=Enter a number: 
 if "%gameselect%"=="1" (goto menu_conanexiles)
@@ -19,6 +20,7 @@ if "%gameselect%"=="2" (goto menu_dontstarve)
 if "%gameselect%"=="3" (goto menu_7daystodie)
 if "%gameselect%"=="4" (goto menu_csgo)
 if "%gameselect%"=="5" (goto menu_rust)
+if "%gameselect%"=="6" (goto menu_tf2)
 if "%gameselect%"=="" (goto menu)
 
 
@@ -52,8 +54,8 @@ set battleye=True
 REM -------- CONAN EXILES SETTINGS HERE -------- 
 
 echo #######################################################
-echo # Single Player Project - %gamename%                #
-echo # https://www.patreon.com/conan513                    #
+echo # Single Player Project - %gamename% 
+echo # https://www.patreon.com/conan513
 echo #######################################################
 echo.
 echo ----------- SERVER SETTINGS -----------
@@ -69,10 +71,6 @@ echo PVP            = %pvp%
 echo BattlEye       = %battleye%
 echo.
 echo ----------- SERVER SETTINGS -----------
-echo.
-echo Press F1 in the game main menu.
-echo Enter this to connect to the local server:
-echo client.connect 127.0.0.1:28015
 echo.
 echo 1 - Start the server
 echo 2 - Edit server settings
@@ -121,8 +119,8 @@ steamcmd.exe +login anonymous +app_update %appid% +quit
 cls
 
 echo #######################################################
-echo # Single Player Project - %gamename%       #
-echo # https://www.patreon.com/conan513                    #
+echo # Single Player Project - %gamename%
+echo # https://www.patreon.com/conan513
 echo #######################################################
 echo.
 echo Start the game or the server before try to change the settings.
@@ -165,7 +163,7 @@ echo Starting the %gamename% server...
 echo Please wait...
 echo.
 cd "%mainfolder%\steamapps\common\%gamefolder%\bin"
-dontstarve_dedicated_server_nullrenderer.exe -console %dontstarvelanswitch%
+start "" dontstarve_dedicated_server_nullrenderer.exe -console %dontstarvelanswitch%
 exit
 
 :edit_dontstarve
@@ -188,8 +186,8 @@ steamcmd.exe +login anonymous +app_update %appid% +quit
 cls
 
 echo #######################################################
-echo # Single Player Project - %gamename%               #
-echo # https://www.patreon.com/conan513                    #
+echo # Single Player Project - %gamename%
+echo # https://www.patreon.com/conan513
 echo #######################################################
 echo.
 echo 1 - Start the server
@@ -236,8 +234,8 @@ cls
 cd "%mainfolder%\steamapps\common\%gamefolder%"
 
 echo ###########################################################
-echo # Single Player Project - %gamename% #
-echo # https://www.patreon.com/conan513                        #
+echo # Single Player Project - %gamename%
+echo # https://www.patreon.com/conan513
 echo ###########################################################
 echo.
 echo 1 - Start Classic Casual
@@ -249,11 +247,11 @@ echo.
 echo 0 - Open wiki page
 echo.
 set /P menu=Enter a number: 
-if "%menu%"=="1" (start srcds -game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2)
-if "%menu%"=="2" (start srcds -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2)
-if "%menu%"=="3" (start srcds -game csgo -console -usercon +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots)
-if "%menu%"=="4" (start srcds -game csgo -console -usercon +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake)
-if "%menu%"=="5" (start srcds -game csgo -console -usercon +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust2)
+if "%menu%"=="1" (start "" srcds -game csgo -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2)
+if "%menu%"=="2" (start "" srcds -game csgo -console -usercon +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2)
+if "%menu%"=="3" (start "" srcds -game csgo -console -usercon +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots)
+if "%menu%"=="4" (start "" srcds -game csgo -console -usercon +game_type 1 +game_mode 1 +mapgroup mg_demolition +map de_lake)
+if "%menu%"=="5" (start "" srcds -game csgo -console -usercon +game_type 1 +game_mode 2 +mapgroup mg_allclassic +map de_dust2)
 if "%menu%"=="0" (start https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Dedicated_Servers)
 if "%menu%"=="" (goto menu)
 exit
@@ -291,8 +289,8 @@ REM -------- RUST SETTINGS HERE --------
 
 
 echo #######################################################
-echo # Single Player Project - %gamename%                        #
-echo # https://www.patreon.com/conan513                    #
+echo # Single Player Project - %gamename%
+echo # https://www.patreon.com/conan513
 echo #######################################################
 echo.
 echo ----------- SERVER SETTINGS -----------
@@ -317,20 +315,54 @@ echo.
 echo 1 - Start the server
 echo 2 - Edit server settings
 echo.
+echo 3 - Open wiki page
+echo.
 set /P menu=Enter a number: 
-if "%menu%"=="1" (goto start)
-if "%menu%"=="2" (goto edit_settings)
+if "%menu%"=="1" (goto start_rust)
+if "%menu%"=="2" (goto edit_conanexiles)
+if "%menu%"=="3" (start https://developer.valvesoftware.com/wiki/Rust_Dedicated_Server)
 if "%menu%"=="" (goto menu)
 
-:edit_settings
-start notepad.exe %mainfolder%\RustServer.bat
-exit
-
-:start 
+:start_rust 
 cls
-echo Starting the Rust server...
+echo Starting the %gamename% server...
 echo Please wait...
 echo.
 cd "%mainfolder%\steamapps\common\%gamefolder%"
-RustDedicated.exe -batchmode +server.port %port% +server.level "%level%" +server.seed %seed% +server.worldsize %worldsize% +server.maxplayers %maxplayers% +server.hostname "%servername%" +server.description "%description%" +server.url "%serverurl%" +server.headerimage "http://yourwebsite.com/serverimage.jpg" +server.identity "%server_identity%" +rcon.port 28016 +rcon.password "%rcon_password%" +rcon.web 1
-goto start
+start "" RustDedicated.exe -batchmode +server.port %port% +server.level "%level%" +server.seed %seed% +server.worldsize %worldsize% +server.maxplayers %maxplayers% +server.hostname "%servername%" +server.description "%description%" +server.url "%serverurl%" +server.headerimage "http://yourwebsite.com/serverimage.jpg" +server.identity "%server_identity%" +rcon.port 28016 +rcon.password "%rcon_password%" +rcon.web 1
+exit
+
+REM ------------------------------------------------------------------------------------------------------------------------------
+
+:menu_tf2
+set appid=232250
+set gamename=Team Fortress 2
+set gamefolder=Team Fortress 2 Dedicated Server
+
+cls
+echo.
+echo Checking %gamename% server updates...
+echo.
+steamcmd.exe +login anonymous +app_update %appid% +quit
+cls
+echo #######################################################
+echo # Single Player Project - %gamename%
+echo # https://www.patreon.com/conan513
+echo #######################################################
+echo.
+echo 1 - Start the server
+echo 2 - Open wiki page
+echo.
+set /P menu=Enter a number: 
+if "%menu%"=="1" (goto start_tf2)
+if "%menu%"=="2" (start https://wiki.teamfortress.com/wiki/Windows_dedicated_server)
+if "%menu%"=="" (goto menu)
+
+:start_tf2 
+cls
+echo Starting the %gamename% server...
+echo Please wait...
+echo.
+cd "%mainfolder%\steamapps\common\%gamefolder%"
+start "" srcds.exe -console -game tf +sv_pure 1 +map ctf_2fort +maxplayers 24
+exit
