@@ -8,3 +8,4 @@ Simple script to download server files directly from Steam and run it.
 - Counter-Strike: Global Offensive
 - Don't Starve Together
 - Rust
+- Team Fortress 2
