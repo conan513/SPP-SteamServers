@@ -1,0 +1,17 @@
+*.pem
+*.dll
+*.exe
+*.txt
+appcache/
+bin
+config
+depotcache
+dumps
+logs
+package
+public
+siteserverui
+steamapps
+userdata
+.crash
+steamcmd.exe.old
