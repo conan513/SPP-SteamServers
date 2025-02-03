@@ -2,6 +2,8 @@
 *.dll
 *.exe
 *.txt
+*.old
+*.delete
 appcache/
 bin
 config

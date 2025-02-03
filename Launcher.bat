@@ -15,6 +15,7 @@ echo 5 - Rust
 echo 6 - Team Fortress 2
 echo 7 - Barotrauma
 echo 8 - SCP: Secret Laboratory
+echo 9 - Project Zomboid
 echo.
 set /P gameselect=Enter a number: 
 if "%gameselect%"=="1" (goto menu_conanexiles)
@@ -25,6 +26,7 @@ if "%gameselect%"=="5" (goto menu_rust)
 if "%gameselect%"=="6" (goto menu_tf2)
 if "%gameselect%"=="7" (goto menu_barotrauma)
 if "%gameselect%"=="8" (goto menu_secretlab)
+if "%gameselect%"=="9" (goto menu_zomboid)
 if "%gameselect%"=="" (goto menu)
 
 
@@ -458,4 +460,45 @@ echo Please wait...
 echo.
 cd "%mainfolder%\steamapps\common\%gamefolder%"
 start "" LocalAdmin.exe
+exit
+
+:menu_zomboid
+set appid=380870
+set gamename=Project Zomboid
+set gamefolder=Project Zomboid Dedicated Server
+
+cls
+echo.
+echo Checking %gamename% server updates...
+echo.
+steamcmd.exe +login anonymous +app_update %appid% +quit
+cls
+echo #######################################################
+echo # Single Player Project - %gamename%
+echo # https://www.patreon.com/conan513
+echo #######################################################
+echo.
+echo 1 - Start the server
+echo 2 - Open config folder (run the server once to generate default config files)
+echo.
+set /P menu=Enter a number: 
+if "%menu%"=="1" (goto start_zomboid)
+if "%menu%"=="2" (goto config_zomboid)
+if "%menu%"=="" (goto menu)
+
+:config_zomboid
+cls
+echo Starting the %gamename% server...
+echo Please wait...
+echo.
+explorer.exe "%HOMEDRIVE%%HOMEPATH%\zomboid\server"
+goto menu_zomboid
+
+:start_zomboid
+cls
+echo Starting the %gamename% server...
+echo Please wait...
+echo.
+cd "%mainfolder%\steamapps\common\%gamefolder%"
+start "" StartServer64.bat
 exit
